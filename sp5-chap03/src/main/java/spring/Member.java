@@ -44,6 +44,6 @@ public class Member {
     if (!password.equals(oldPassword)) {
       throw new WrongIdPasswordException();
     }
-    this.password = password;
+    this.password = newPassword;
   }
 }
