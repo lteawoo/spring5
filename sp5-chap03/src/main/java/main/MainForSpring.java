@@ -7,10 +7,10 @@ import java.io.InputStreamReader;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import assembler.Assembler;
 import config.AppCtx;
 import spring.ChangePasswordService;
 import spring.DuplicateMemberException;
+import spring.MemberListPrinter;
 import spring.MemberNotFoundException;
 import spring.MemberRegisterService;
 import spring.RegisterRequest;
@@ -37,9 +37,18 @@ public class MainForSpring {
       } else if (command.startsWith("change")) {
         processChangeCommand(command.split(" "));
         continue;
+      } else if (command.startsWith("list")) {
+        processListCommand();
+        continue;
       }
     }
     printHelp();
+  }
+  
+  private static void processListCommand() {
+    MemberListPrinter listPrinter =
+        ctx.getBean("listPrinter", MemberListPrinter.class);
+    listPrinter.printAll();
   }
   
   private static void processNewCommand(String[] arg) {
