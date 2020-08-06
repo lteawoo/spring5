@@ -3,11 +3,7 @@ package config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import spring.ChangePasswordService;
-import spring.MemberDao;
-import spring.MemberListPrinter;
-import spring.MemberPrinter;
-import spring.MemberRegisterService;
+import spring.*;
 
 @Configuration
 public class AppCtx {
@@ -37,5 +33,13 @@ public class AppCtx {
   @Bean
   public MemberListPrinter listPrinter() {
     return new MemberListPrinter(memberDao(), memberPrinter());
+  }
+
+  @Bean
+  public MemberInfoPrinter infoPrinter() {
+    MemberInfoPrinter infoPrinter = new MemberInfoPrinter();
+    infoPrinter.setMemberDao(memberDao());
+    infoPrinter.setPrinter(memberPrinter());
+    return infoPrinter;
   }
 }
