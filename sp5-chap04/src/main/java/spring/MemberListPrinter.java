@@ -9,7 +9,7 @@ public class MemberListPrinter {
   @Autowired
   private MemberDao memberDao;
   @Autowired
-  @Qualifier("summaryPrinter")
+  @Qualifier("printer")
   private MemberPrinter printer;
   
   public MemberListPrinter() {
