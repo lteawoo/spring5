@@ -51,7 +51,7 @@ public class MainForMemberDao {
     private static void insertMember() {
         System.out.println("----- insertMember");
 
-        String prefix = formatter.format(LocalDate.now());
+        String prefix = formatter.format(LocalDateTime.now());
         Member member = new Member(prefix + "@test.com", prefix, prefix, LocalDateTime.now());
         memberDao.insert(member);
 
