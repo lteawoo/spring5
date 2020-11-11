@@ -3,6 +3,9 @@ package config;
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import spring.ChangePasswordService;
 import spring.MemberDao;
 import spring.MemberInfoPrinter;
@@ -12,6 +15,7 @@ import spring.MemberRegisterService;
 import spring.VersionPrinter;
 
 @Configuration
+@EnableTransactionManagement
 public class AppCtx {
 
   @Bean(destroyMethod = "close")
@@ -24,6 +28,13 @@ public class AppCtx {
     ds.setInitialSize(2);
     ds.setMaxActive(10);
     return ds;
+  }
+
+  @Bean
+  public PlatformTransactionManager transactionManager() {
+    DataSourceTransactionManager dataSourceTransactionManager = new DataSourceTransactionManager();
+    dataSourceTransactionManager.setDataSource(dataSource());
+    return dataSourceTransactionManager;
   }
 
   // 메서드 이름을 빈 객체의 이름으로 사용한다.
